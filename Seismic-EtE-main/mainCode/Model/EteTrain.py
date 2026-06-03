@@ -19,7 +19,7 @@ from tqdm import tqdm
 from torch.cuda.amp import autocast, GradScaler
 from kmeans_pytorch import kmeans as Kmeans_torch
 
-from model import SeismicStarSSM
+from model import SeismicMVCC_Pretrain
 
 # =========================== 1. Logging & Utils ===========================
 logger = None
@@ -77,6 +77,7 @@ class SeismicDataset(Dataset):
     def __getitem__(self, idx):
         pos = self.samples[idx]
         cil, cxl = pos['center_il'], pos['center_xl']
+
         x_inline = self._normalize_global(self._load_multi_slice('axis_0', cxl, cil, radius=2))
         x_crossline = self._normalize_global(self._load_multi_slice('axis_1', cil, cxl, radius=2))
         x_time = self._normalize_global(self._load_multi_slice('axis_2', 10, (cil, cxl), radius=2))
@@ -262,7 +263,7 @@ if __name__ == "__main__":
     np.random.seed(config["seed"])
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-    model = SeismicStarSSM(embed_dim=128, num_clusters=config["num_clusters"]).to(device)
+    model = SeismicMVCC_Pretrain(embed_dim=128, num_clusters=config["num_clusters"]).to(device)
 
     print(">>> Phase 1: End-to-End Fine-Tuning")
     train_ds = SeismicDataset(config["data_root"], sampling_interval=4)
