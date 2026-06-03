@@ -36,6 +36,7 @@ pip install mamba-ssm
 🚀 Usage
 
 ```
+python Predata.py
 python train.py
 python plot.py
 ```
