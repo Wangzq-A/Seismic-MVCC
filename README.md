@@ -7,7 +7,7 @@ Unsupervised seismic facies analysis efficiently characterizes lateral reservoir
 To address this, we propose an end-to-end unsupervised Multi-View Contrastive Clustering (MVCC) framework. Driven by the massive data volumes typical of seismic exploration, our designed feature extractor synergizes **lightweight StarBlocks** with a **Global-Local State Space module (GLSS2D)** to model long-range stratigraphic dependencies. Ultimately, by integrating spatial translation contrastive learning and Deep Embedded Clustering (DEC), the framework achieves the progressive alignment of the feature space and classification boundaries.
 
 ![模型图](https://github.com/Wangzq-A/Seismic-MVCC/blob/main/model2.png)
-
+![encoder](https://github.com/Wangzq-A/Seismic-MVCC/blob/main/encoder.png)
 ## 🗂️ Repository Structure
 
 ```
