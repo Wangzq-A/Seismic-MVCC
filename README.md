@@ -34,9 +34,16 @@ pip install mamba-ssm
 ```
 
 🚀 Usage
-
+Run in order
 ```
 python Predata.py
-python train.py
+```
+```
+python Pretrain.py
+```
+```
+python Etetrain.py
+```
+```
 python plot.py
 ```
