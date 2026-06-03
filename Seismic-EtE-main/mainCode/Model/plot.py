@@ -14,8 +14,8 @@ from matplotlib import pyplot as plt
 from matplotlib.colors import ListedColormap, BoundaryNorm
 from scipy.ndimage import sobel, median_filter
 
-from model import SeismicStarSSM
-from train import SeismicDataset
+from model import SeismicMVCC_Pretrain
+from EteTrain import SeismicDataset
 
 
 def predict_and_plot(model, dataset, raw_data_path, num_clusters=4):
@@ -52,7 +52,6 @@ def predict_and_plot(model, dataset, raw_data_path, num_clusters=4):
         v_min, v_max = np.percentile(sobel_sim, 2), np.percentile(sobel_sim, 98)
         sobel_sim_clipped = np.clip(sobel_sim, v_min, v_max)
 
-        # 线性映射到 0~1 区间：0 代表强边界，1 代表连续平滑地层
         background = (sobel_sim_clipped - v_min) / (v_max - v_min + 1e-8)
 
     except Exception as e:
@@ -62,7 +61,6 @@ def predict_and_plot(model, dataset, raw_data_path, num_clusters=4):
     print(">>> 7. Plotting Final Image...")
     plt.figure(figsize=(18, 10))
 
-    # 画前景分类结果 (彩色)
     paper_colors = [
         '#BF7F7F',
         '#797DD4',
@@ -75,15 +73,14 @@ def predict_and_plot(model, dataset, raw_data_path, num_clusters=4):
 
     plt.imshow(facies_map.T, cmap=cmap_facies, norm=norm, aspect='auto', interpolation='nearest')
 
-    # 2. 【核心大招】：创建专用的“边界描边蒙版”
     from matplotlib.colors import LinearSegmentedColormap
-    # 0（低相似度/边界）映射为 85% 浓郁的纯黑色，1（高相似度/平滑）映射为完全透明(alpha=0)！
+
     black_to_transparent = LinearSegmentedColormap.from_list("black_alpha", [(0, 0, 0, 0.85), (0, 0, 0, 0)])
 
     plt.imshow(background, cmap=black_to_transparent, aspect='auto', interpolation='bicubic', vmin=0, vmax=1.0)
 
     plt.title("End-to-End Deep Clustering Seismic Facies")
-    save_path = "/root/autodl-tmp/paper_overlay_ETE_Augmenter.png"
+    save_path = "/root/autodl-tmp/paper_overlay_ETE.png"
     plt.savefig(save_path, dpi=300, bbox_inches='tight')
     print(f">>> Saved successfully to {save_path}")
 
@@ -102,7 +99,7 @@ if __name__ == "__main__":
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
     print(">>> Phase 2: Full Map Inference and Plotting")
-    model = SeismicStarSSM(embed_dim=128, num_clusters=config["num_clusters"]).to(device)
+    model = SeismicMVCC_Pretrain(embed_dim=128, num_clusters=config["num_clusters"]).to(device)
 
     if os.path.exists(config["model_path"]):
         model.load_state_dict(torch.load(config["model_path"], map_location=device))
