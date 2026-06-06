@@ -36,14 +36,14 @@ pip install mamba-ssm
 🚀 Usage
 Run in order
 ```
-python Predata.py
+python Seismic-EtE-main/mainCode/Model/Predata.py
 ```
 ```
-python Pretrain.py
+python Seismic-EtE-main/mainCode/Model/Pretrain.py
 ```
 ```
-python Etetrain.py
+python Seismic-EtE-main/mainCode/Model/Etetrain.py
 ```
 ```
-python plot.py
+python Seismic-EtE-main/mainCode/Model/plot.py
 ```
