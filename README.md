@@ -21,7 +21,7 @@ To address this, we propose an end-to-end unsupervised Multi-View Contrastive Cl
 
 ## ⚙️ Installation & Dependencies
 
-Ensure you have Python 3.8+ and PyTorch 1.12+ installed.
+Ensure you have Python 3.12+ and PyTorch 2.8+ installed.
 
 ```
 # Core dependencies
