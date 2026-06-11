@@ -6,8 +6,8 @@ Unsupervised seismic facies analysis efficiently characterizes lateral reservoir
 
 To address this, we propose an end-to-end unsupervised Multi-View Contrastive Clustering (MVCC) framework. Driven by the massive data volumes typical of seismic exploration, our designed feature extractor synergizes **lightweight StarBlocks** with a **Global-Local State Space module (GLSS2D)** to model long-range stratigraphic dependencies. Ultimately, by integrating spatial translation contrastive learning and Deep Embedded Clustering (DEC), the framework achieves the progressive alignment of the feature space and classification boundaries.
 
-![](D:\机器学校\文章\我的文章\model2.png)
-
+![模型图](https://github.com/Wangzq-A/Seismic-MVCC/blob/main/model2.png)
+![encoder](https://github.com/Wangzq-A/Seismic-MVCC/blob/main/encoder.png)
 ## 🗂️ Repository Structure
 
 ```
@@ -21,7 +21,7 @@ To address this, we propose an end-to-end unsupervised Multi-View Contrastive Cl
 
 ## ⚙️ Installation & Dependencies
 
-Ensure you have Python 3.8+ and PyTorch 1.12+ installed.
+Ensure you have Python 3.12+ and PyTorch 2.8+ installed.
 
 ```
 # Core dependencies
@@ -34,9 +34,16 @@ pip install mamba-ssm
 ```
 
 🚀 Usage
-
+Run in order
 ```
-python train.py
-python plot.py
+python Seismic-EtE-main/mainCode/Model/Predata.py
 ```
-
+```
+python Seismic-EtE-main/mainCode/Model/Pretrain.py
+```
+```
+python Seismic-EtE-main/mainCode/Model/Etetrain.py
+```
+```
+python Seismic-EtE-main/mainCode/Model/plot.py
+```
